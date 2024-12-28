@@ -13,7 +13,7 @@ HOT_TEMP_IN = 80  # °C
 HOT_TEMP_OUT = 50  # °C
 W_HOT_MASS_FLOW = 13000/3600  # kg/s
 Cp_HOT = 3.70592*1000 # J/(kg·°K)
-HOT_DENSITY = 971008.8649 # kg/m³
+HOT_DENSITY = 1008.8649 # kg/m³
 HOT_VISCOSITY = 5.94967/(10**4)  # N·s/m^2
 HOT_THERMAL_CONDUCTIVITY = 0.485208  # W/(m·K)
 HOT_PRANDTL_NUMBER = 4.54 # unitless
@@ -133,10 +133,10 @@ def Gnielinski_f_calculator_24(tube_number,tube_inner_diameter,tube_outer_diamet
         return f, Re_d
 def Gnielinski_Nu_calculator_25(tube_number,tube_inner_diameter,tube_outer_diameter,shell_diameter):
     Pr_t = Pr_t_calculator_16()
-    if 0.5<=Pr_t<=2000:
-        f, Re_d = Gnielinski_f_calculator_24(tube_number,tube_inner_diameter,tube_outer_diameter,shell_diameter)
+    if 0.5 <= Pr_t <= 2000:
+        f, Re_d = Gnielinski_f_calculator_24(tube_number, tube_inner_diameter, tube_outer_diameter, shell_diameter)
         if f != -1:
-            Nu = ((f/2)*Re_d*Pr_t)/ 1 + 12.7 * (f/2)**(1/2) * (Pr_t**(2/3) - 1)
+            Nu = ((f / 2) * Re_d * Pr_t) / (1 + 12.7 * ((f / 2) ** (1 / 2)) * (Pr_t ** (2 / 3)) - 1)
             return Nu
         else:
             return -1
@@ -168,7 +168,7 @@ def dirt_factor_calculator_22(tube_number,tube_lenght,tube_outer_diameter,tube_i
     U_d = design_overall_coeff_calculator_21(tube_number,tube_lenght,tube_outer_diameter)
     U_c = clean_overall_coeff_calculator_20(tube_inner_diameter, tube_outer_diameter,shell_diameter,tube_number)
     if U_c != -1:
-        R_d = (U_c-U_d)/(U_c*U_d)
+        R_d = (1/U_c) - (1/U_d)
         return R_d
     else:
         return -1
@@ -234,7 +234,7 @@ for outer_diameter, inner_diameter, length, shell_diameter,max_of_tubes in combi
             if dirt_factor != -1:
                 delta_P_s = delta_P_s_drop_calculator_34(outer_diameter, shell_diameter, length)
                 total_P_drop = total_pressure_drop_calculator(length, inner_diameter, i, outer_diameter, shell_diameter)
-                if total_P_drop < 172368:
+                if total_P_drop < 172368.925:
                     results.append((outer_diameter, shell_diameter, i, length, total_P_drop, delta_P_s))
             else:
                 pass
