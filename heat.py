@@ -187,7 +187,7 @@ def dirt_factor_calculator_22(tube_number,tube_lenght,tube_outer_diameter,tube_i
     U_d = design_overall_coeff_calculator_21(tube_number,tube_lenght,tube_outer_diameter)
     U_c = clean_overall_coeff_calculator_20(tube_inner_diameter, tube_outer_diameter,shell_diameter,tube_number)
     if U_c != -1:
-        R_d = (1/U_c) - (1/U_d)
+        R_d = -(1/U_c) + (1/U_d)
         return R_d
     else:
         return -1
@@ -270,12 +270,12 @@ for outer_diameter, inner_diameter, length, shell_diameter,max_of_tubes in combi
 results.sort(key=lambda x: x[4])
 sayac = 1
 for outer_diameter, shell_diameter, i, length, total_P_drop, delta_P_s in results:
-    if sayac <= 10:
-        print("Outer dia: {} m , Shell dia: {} m , Total Tube Number: {}, Lenght: {} m , delta P total: {} Pa, Delta Ps: {} Pa\n\n\n\n".format(outer_diameter, shell_diameter, i, length, total_P_drop, delta_P_s))
+    if sayac <= 50:
+        print("Outer dia: {} m , Shell dia: {} m , Total Tube Number: {}, Lenght: {} m , delta P total: {} Pa, Delta Ps: {} Pa".format(outer_diameter, shell_diameter, i, length, total_P_drop, delta_P_s))
         sayac += 1
     else:
         pass
-print("********************-----------------------------------------------------------------------------------------------------------------------********************")
+print("\n\n\n\n********************-----------------------------------------------------------------------------------------------------------------------********************")
 
 outer_diameter = 0.05080
 shell_diameter = 0.6128
